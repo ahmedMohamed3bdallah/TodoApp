@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <table>
+    <tr>
+      <div class="padding-buttons">
+        <button mat-fab class="center-button" (click)="openNewDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </tr>
+    <tr>
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let todo of TodoList" cdkDrag>
+          <table>
+            <tr>
+              <h2 style="color: brown;">
+                {{ todo.Name }}
+              </h2>
+            </tr>
+            <tr>
+              <h3>{{ todo.Description }}</h3>
+            </tr>
+          </table>
+          <div>
+            <button mat-button (click)="openEditDialog(todo)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button (click)="Delete(todo)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </tr>
+  </table>
+</div>
