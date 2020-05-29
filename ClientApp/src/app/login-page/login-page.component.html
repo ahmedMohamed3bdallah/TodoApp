@@ -1,43 +1,68 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div style="width: 100%; height: 100%;">
+  <div
+    class="login-wrapper animation"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
     <mat-card class="box">
-        <mat-card-header>
-          <mat-card-title>Login</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <form class="example-form">
-            <table class="example-full-width" cellspacing="0">
-              <tr>
-                <td>
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Username"
-                      [(ngModel)]="userDto.UserName"
-                      name="username"
-                      required
-                    />
-                  </mat-form-field>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <mat-form-field class="example-full-width">
-                    <input
-                      matInput
-                      placeholder="Password"
-                      [(ngModel)]="userDto.Password"
-                      type="password"
-                      name="password"
-                      required
-                    />
-                  </mat-form-field>
-                </td>
-              </tr>
-            </table>
-          </form>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button (click)="login()" color="primary">Login</button>
-        </mat-card-actions>
-      </mat-card>
+      <mat-card-header>
+        <mat-card-title>Welcome</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="example-form">
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width">
+                  <input
+                    matInput
+                    placeholder="Username"
+                    [(ngModel)]="userDto.UserName"
+                    name="username"
+                    required
+                  />
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="example-full-width">
+                  <input
+                    matInput
+                    placeholder="Password"
+                    [(ngModel)]="userDto.Password"
+                    type="password"
+                    name="password"
+                    required
+                  />
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="login()" color="primary">
+          Login
+        </button>
+      </mat-card-actions>
+
+      <!-- Add font awesome icons -->
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <a href="https://web.facebook.com/ahmed5abdallah" class="fa fa-facebook-square"></a>
+            </td>
+            <td>
+              <a href="https://www.linkedin.com/in/ahmed-abdallah-18537974/" class="fa fa-linkedin-square"></a>
+            </td>
+            <td>
+              <a href="https://github.com/ahmedMohamed3bdallah" class="fa fa-github-square"></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card>
+  </div>
 </div>

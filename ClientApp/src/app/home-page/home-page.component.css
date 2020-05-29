@@ -1,4 +1,7 @@
 .expanded-toolbar {
-    justify-content: space-between;
-    align-items: center;
-  }
+  justify-content: space-between;
+  align-items: center;
+}
+.Main-List {
+  background-image: "../../assets/BG.jpg";
+}

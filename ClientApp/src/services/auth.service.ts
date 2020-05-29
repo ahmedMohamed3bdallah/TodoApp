@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserDTO } from 'src/model/UserDTO';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = 'https://localhost:44354/api/Admin/';
+  baseUrl = environment.BaseURL + 'api/Admin/';
 
   helper = new JwtHelperService();
   token: any;
@@ -39,6 +40,9 @@ export class AuthService {
     if (this.token === null) {
       return false;
     } else {
+      if(!this.decodedToken){
+        this.decodedToken = this.helper.decodeToken(this.token);
+      }
       return !this.helper.isTokenExpired(this.token);
     }
   }

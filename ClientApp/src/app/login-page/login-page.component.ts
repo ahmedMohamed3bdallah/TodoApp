@@ -31,9 +31,8 @@ export class LoginPageComponent implements OnInit {
           this.router.navigate(['/home']);
         }
       );
-      // this.router.navigate(['home']);
     } else {
-      alert('Invalid credentials');
+      this.notification.showError('Please Enter username and Password!!!', '');
     }
   }
 }

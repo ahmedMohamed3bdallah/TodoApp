@@ -5,6 +5,7 @@ import { TodoEditDialogComponent } from '../todo-edit-dialog/todo-edit-dialog.co
 import { TodoDTO } from 'src/model/TodoDTO';
 import { TodoService } from 'src/services/todo.service';
 import { NotificationService } from 'src/services/notification.service';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -15,54 +16,105 @@ export class TodoListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private todoService: TodoService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private authService: AuthService
   ) {}
   TodoList: TodoDTO[] = [] as TodoDTO[];
+
   ngOnInit() {
-    this.TodoList.push(new TodoDTO(1, 'ahmed', 'desc 1', true, 1));
-    this.TodoList.push(new TodoDTO(2, 'ahmed1', 'desc 2', false, 1));
-    this.TodoList.push(new TodoDTO(3, 'ahmed2', 'desc 3', true, 1));
+    this.todoService.getAll().subscribe((data) => {
+      this.TodoList = data;
+    });
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.TodoList, event.previousIndex, event.currentIndex);
   }
 
-  openEditDialog(current: TodoDTO): void {
-    const temp = current;
-    const dialogRef = this.dialog.open(TodoEditDialogComponent, {
-      width: '250px',
-      data: temp,
-    });
+  openEditDialog(current: TodoDTO, index: number): void {
+    this.todoService.get(current.id).subscribe((data) => {
+      const temp = data;
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.notification.showInfo('The dialog was closed', '');
-      current = result;
+      const dialogRef = this.dialog.open(TodoEditDialogComponent, {
+        width: '250px',
+        data: temp,
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.todoService.update(result).subscribe(
+            () => {
+              this.notification.showInfo('Done', '');
+              this.TodoList[index] = result;
+            },
+            (error) => {
+              this.notification.showError('error', '');
+            }
+          );
+        }
+      });
     });
   }
 
   openNewDialog(): void {
     const dialogRef = this.dialog.open(TodoEditDialogComponent, {
-      width: '250px',
-      data: new TodoDTO(),
+      width: '500px',
+      data: new TodoDTO(
+        0,
+        '',
+        '',
+        false,
+        +this.authService.decodedToken['nameid'],
+        this.TodoList.length + 1
+      ),
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.notification.showInfo('The dialog was closed', '');
-      this.todoService.add(result).subscribe(
-        (data) => {
-          this.notification.showInfo('Done', '');
-          console.log(data);
-        },
-        (error) => {
-          console.log(error);
-          this.notification.showError('erro', '');
-        }
-      );
-
-      // this.TodoList.push(result);
-      // console.log(result);
+      if (result) {
+        this.todoService.add(result).subscribe(
+          (data) => {
+            this.notification.showInfo('Done', '');
+            this.TodoList.push(data);
+          },
+          (error) => {
+            this.notification.showError('error', '');
+          }
+        );
+      }
     });
   }
-  Delete(current: TodoDTO) {}
+
+  Delete(current: TodoDTO, index: number) {
+    this.todoService.delete(current.id).subscribe(
+      () => {
+        this.TodoList.splice(index, 1);
+        this.notification.showInfo('Delete Successful', '');
+      },
+      (error) => {
+        this.notification.showError('error', '');
+      }
+    );
+  }
+  saveReorderTodo() {
+    for (let i = 0; i < this.TodoList.length; i++) {
+      this.TodoList[i].sortOrder = i + 1 ;
+    }
+    this.todoService.updateList(this.TodoList).subscribe(
+      () => {
+        this.notification.showInfo('update Task Order Successful', '');
+      },
+      () => {
+        this.notification.showError('error', '');
+      }
+    );
+  }
+  getRandomColor() {
+    // [ngStyle]="{'background-color': getRandomColor() }"
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 }

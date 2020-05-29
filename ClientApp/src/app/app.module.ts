@@ -27,7 +27,6 @@ import { AuthService } from 'src/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ToastrModule } from 'ngx-toastr';
-import { ErrorInterceptor } from 'src/services/error.interceptor';
 import {  JwtModule } from '@auth0/angular-jwt';
 import { JwtInterceptor } from 'src/services/jwt.interceptor';
 
@@ -68,7 +67,6 @@ import { JwtInterceptor } from 'src/services/jwt.interceptor';
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     AuthService
   ],
   bootstrap: [AppComponent],

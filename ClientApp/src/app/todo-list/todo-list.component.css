@@ -1,6 +1,6 @@
 .example-list {
-  width: 500px;
-  max-width: 100%;
+  width: 90%;
+  
   border: solid 1px #ccc;
   min-height: 60px;
   display: block;
@@ -19,7 +19,7 @@
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
-  background: white;
+  background: rgba(255,255,255,0.78);
   font-size: 14px;
 }
 
@@ -50,11 +50,12 @@
   align-items: center;
   justify-content: center;
 }
-.center-button{
-  display: block;
-  margin: auto;
+.center-content{
+  display: grid;
+  place-items: center;
 }
 .padding-buttons{
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
 }

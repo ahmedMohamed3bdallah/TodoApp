@@ -1,15 +1,19 @@
-<mat-toolbar color="primary" class="expanded-toolbar">
+<div style="width: 100%; height: 90%;">
+  <mat-toolbar color="primary" class="expanded-toolbar">
     <span>
       <button mat-button routerLink="/">
         <mat-icon>dns</mat-icon>
-        {{title}}</button>
+        {{ title }}
+      </button>
     </span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button (click)="Logout()">
-      <mat-icon>power_settings_new</mat-icon>
-      LogOut
-    </button>
+    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+      <button mat-button (click)="Logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        LogOut
+      </button>
+    </div>
+  </mat-toolbar>
+  <div [ngStyle]="{'background' : 'url(./assets/BG.jpg)'}" style="height: 100%;">
+    <app-todo-list></app-todo-list>
   </div>
-</mat-toolbar>
-
-<app-todo-list></app-todo-list>
+</div>

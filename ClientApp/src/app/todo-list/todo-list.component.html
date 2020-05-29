@@ -1,35 +1,69 @@
 <div class="wrapper">
-  <table>
+  <table style="width: 100%;" class="center-content">
     <tr>
-      <div class="padding-buttons">
-        <button mat-fab class="center-button" (click)="openNewDialog()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
+      <td>
+        <div class="padding-buttons">
+          <button
+            mat-fab
+            (click)="openNewDialog()"
+            matTooltip="Add new Task"
+            matTooltipPosition="before"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </td>
+      <td>
+        <div class="padding-buttons">
+          <button
+            mat-fab
+            (click)="saveReorderTodo()"
+            matTooltip="Save List's order"
+            matTooltipPosition="after"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+      </td>
     </tr>
-    <tr>
-      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let todo of TodoList" cdkDrag>
+    <hr />
+    <tr style="width: 100%;" class="center-content">
+      <div
+        cdkDropList
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+        *ngIf="TodoList.length > 0; else noList"
+      >
+        <div
+          class="example-box"
+          *ngFor="let todo of TodoList; let i = index"
+          
+          cdkDrag
+        >
           <table>
             <tr>
               <h2 style="color: brown;">
-                {{ todo.Name }}
+                {{ todo.name }}
               </h2>
             </tr>
             <tr>
-              <h3>{{ todo.Description }}</h3>
+              <h3>{{ todo.description }}</h3>
             </tr>
           </table>
-          <div>
-            <button mat-button (click)="openEditDialog(todo)">
+          <div style="display: flex;">
+            <button mat-button (click)="openEditDialog(todo, i)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-button (click)="Delete(todo)">
+            <button mat-button (click)="Delete(todo, i)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
         </div>
       </div>
+
+      <ng-template #noList>
+        press <span> <mat-icon>add</mat-icon> </span> to enter new Todo Task
+      </ng-template>
     </tr>
   </table>
 </div>
