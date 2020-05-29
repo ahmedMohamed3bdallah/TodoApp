@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.Todo.Commands.Create.Dto;
 using Application.Todo.Commands.Delete.Dto;
 using Application.Todo.Commands.Update.Dto;
+using Application.Todo.Commands.UpdateList;
 using Application.Todo.Queries.Get;
 using Application.Todo.Queries.Get.Dto;
 using Application.Todo.Queries.GetAll;
@@ -51,6 +52,13 @@ namespace WebAPI.Controllers
         {
             return Ok(await _mediator.Send(commandDto));
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateList([FromBody] UpdateListCommand commandDto)
+        {
+            return Ok(await _mediator.Send(commandDto));
+        }
+
 
         [HttpDelete("{id}")]
 

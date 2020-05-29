@@ -29,6 +29,7 @@ namespace Application.Todo.Queries.GetAll
                                    .Todos
                                    .Where(u => u.UserID == request.UserID)
                                    .ProjectTo<TodoGetAllQueryDto>(_mapper.ConfigurationProvider)
+                                   .OrderBy(s => s.SortOrder)
                                    .ToListAsync(cancellationToken);
             return entity;
         }

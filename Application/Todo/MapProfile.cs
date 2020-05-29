@@ -1,5 +1,6 @@
 ﻿using Application.Todo.Commands.Create.Dto;
 using Application.Todo.Commands.Update.Dto;
+using Application.Todo.Commands.UpdateList.Dto;
 using Application.Todo.Queries.Get;
 using Application.Todo.Queries.GetAll.Dto;
 using AutoMapper;
@@ -22,6 +23,9 @@ namespace Application.Todo
 
             //Update
             CreateMap<Todos, TodoUpdateCommandDto>().ReverseMap();
+
+            //Update List
+            CreateMap<Todos, TodoUpdateListCommandDto>().ReverseMap();
 
         }
     }

@@ -12,5 +12,6 @@ namespace Application.Todo.Commands.Create.Dto
         public string Description { get; set; }
         public bool IsCompleted { get; set; }
         public long UserID { get; set; }
+        public long SortOrder { get; set; }
     }
 }
